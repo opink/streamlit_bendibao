@@ -8,8 +8,6 @@ Created on 2022年7月9日 15:39:14
 import requests 
 from lxml import etree
 import pandas as pd
-import time
-import locale
 import streamlit as st
 
 class BendibaoFXDQ:
@@ -25,6 +23,8 @@ class BendibaoFXDQ:
         response = requests.get(self.base_url,headers=self.headers)
         print(response)
         jiexi = etree.HTML(response.text)
+        got_time = jiexi.xpath('//div[@class="border-title"]//p[@class="time"]/text()')
+        print(got_time)
         xiangmus = jiexi.xpath('//div[@class="info"]/div/p/text()')
         print(xiangmus)
         xiangmus = ['height-title','middle-title','tiaogao-title','tiaozhong-title','tiaodi-title']
@@ -48,7 +48,8 @@ class BendibaoFXDQ:
                                         'tiaogao-title':'今日调高',
                                         'tiaozhong-title':'今日调中',
                                         'tiaodi-title':'今日调低'})
-        return df
+        return df, got_time
+
 
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
@@ -58,13 +59,10 @@ st.title('通过本地宝获取全国疫情中高风险地区名单的CSV表格'
 st.write('实时更新数据来源 ->  http://m.bendibao.com/news/gelizhengce/fengxianmingdan.php')
 
 if st.button('点击开始获取数据'):
-    df = BendibaoFXDQ().get_list()
-    locale.setlocale(locale.LC_CTYPE, 'chinese')
-    now = time.strftime("%Y年%m月%d日%H时%M分%S秒")
+    df, now = BendibaoFXDQ().get_list()
     st.dataframe(df,800,480)
     st.write(f'截止{now}获取数据')
     csv = convert_df(df)
     st.download_button('选择本地文件夹进行保存,保存后网页数据清除', 
                         data=csv,file_name=f'截止{now}全国中高风险地区名单.csv')
-
     
