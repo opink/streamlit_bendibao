@@ -52,7 +52,7 @@ class BendibaoFXDQ:
 @st.cache
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv().encode('ANSI')
+    return df.to_csv().encode('gbk') # raw python 不支持ANSI
 
 st.title('通过本地宝获取全国疫情中高风险地区名单的CSV表格')
 st.write('实时更新数据来源 ->  http://m.bendibao.com/news/gelizhengce/fengxianmingdan.php')
