@@ -8,7 +8,8 @@ Created on 2022年7月9日 15:39:14
 import requests 
 from lxml import etree
 import pandas as pd
-import datetime
+import time
+import locale
 import streamlit as st
 
 class BendibaoFXDQ:
@@ -58,8 +59,8 @@ st.write('实时更新数据来源 ->  http://m.bendibao.com/news/gelizhengce/fe
 
 if st.button('点击开始获取数据'):
     df = BendibaoFXDQ().get_list()
-    now = datetime.datetime.now()
-    now = now.strftime("%Y年%m月%d日%H时%M分%S秒")
+    locale.setlocale(locale.LC_CTYPE, 'chinese')
+    now = time.strftime("%Y年%m月%d日%H时%M分%S秒")
     st.dataframe(df,800,480)
     st.write(f'截止{now}获取数据')
     csv = convert_df(df)
