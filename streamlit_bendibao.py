@@ -42,7 +42,7 @@ class BendibaoFXDQ:
                         prov, city = province[0][0][0].text, province[0][0][0].text
                     for site in sites:
                         linshi_list.append([xiangmu, prov, city, site[1].text]) # 组装好一个数据
-        df = pd.DataFrame(linshi_list,columns=['项目','省','市','点位'])
+        df = pd.DataFrame(linshi_list,columns=['项目','省or自治区or直辖市','市or直辖市','点位'])
         df['项目'] = df['项目'].replace({'height-title':'高风险地区','middle-title':'中风险地区','tiaogao-title':'今日调高',
                                         'tiaozhong-title':'今日调中','tiaodi-title':'今日调低'}
                                         )
