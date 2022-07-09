@@ -19,7 +19,7 @@ class BendibaoFXDQ:
         self.headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.49'}
         self.zhixiashi = ['北京市','上海市','天津市','重庆市']
 
-    def get_list(self, path:str ='today') -> pd.DataFrame, timestrs:
+    def get_list(self, path:str ='today') -> pd.DataFrame:
         response = requests.get(self.base_url,headers=self.headers)
         # print(response) # 本地调试响应用
         jiexi = etree.HTML(response.text)
