@@ -49,7 +49,6 @@ class BendibaoFXDQ:
                                         'tiaodi-title':'今日调低'})
         return df
 
-@st.cache
 def convert_df(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     return df.to_csv().encode('gbk') # raw python 不支持ANSI
