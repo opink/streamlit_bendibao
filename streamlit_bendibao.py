@@ -50,7 +50,10 @@ class BendibaoFXDQ:
 
 # @st.cache加在哪里啊?没整明白啊
 def convert_df(df):
-    return df.to_csv().encode('utf-8') # raw python 不支持ANSI么?
+    return df.to_csv().encode('utf-8') 
+    # raw python 跟随系统的encoding，简中默认gbk。
+    # 而网络数据流如无BOM或Xml的encoding声明，默认是使用utf-8encoding的。
+    # 网络数据流是byte。因此写入的文件的encoding要与网络数据流的encoding一致，不然会解析byte出错。
 
 st.title('通过本地宝获取全国疫情中高风险地区名单的CSV表格')
 st.write('实时更新数据来源 ->  http://m.bendibao.com/news/gelizhengce/fengxianmingdan.php')
