@@ -13,3 +13,4 @@ linked-web-site : https://opink-streamlit-bendibao-streamlit-bendibao-rb3om6.str
 2. 网络数据流如无BOM或Xml的encoding声明，默认是使用utf-8encoding的。
 3. 网络数据流是byte。~~解码至内存中统一使用Unicode对应的可读明文。~~
 4. 因此从网络中读取到本地内存后的数据流，后写入硬盘文件的encoding要至少能覆盖网络数据流byte的encoding的编码格式，不然会encode时存在超出编码范围的byte码不能正确encode而报错。
+5. 而python3默认是以当前操作系统的默认格式（简中win是gbk；linux是utf-8）进行把unicode转硬盘文件编码成bytes。
